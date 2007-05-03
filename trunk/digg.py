@@ -980,18 +980,49 @@ class Digg(object):
                       data):
         _min_date = None
         _max_date = None
+        
         if hasattr(data.stories, 'min_date'):
             _min_date = data.stories.min_date
         if hasattr(data.stories, 'max_date'):
             _max_date = data.stories.max_date
         stories = Digg.Stories(self, data.stories.timestamp, _min_date, _max_date, data.stories.total, data.stories.offset, data.stories.count)
         if hasattr(data.stories, 'story'):
+            user_name = None
+            user_icon = None
+            user_registered = None
+            user_profileviews = None
+            topic_name = None
+            topic_short_name = None
+            container_name = None
+            container_short_name = None
             if isinstance(data.stories.story, list):
                 for story in data.stories.story:
-                    stories.append(Digg.Story(self, story.id, story.link, story.submit_date, story.diggs, story.comments, story.href, story.status, story.title.text, story.description.text, story.user.name, story.user.icon, story.user.registered, story.user.profileviews, story.topic.name, story.topic.short_name, story.container.name, story.container.short_name))
+                    if hasattr(story, 'user'):
+                        user_name = story.user.name
+                        user_icon = story.user.icon
+                        user_registered = story.user.registered
+                        user_profileviews = story.user.profileviews
+                    if hasattr(story, 'topic'):
+                        topic_name = story.topic.name
+                        topic_short_name = story.topic.short_name
+                    if hasattr(story, 'container'):
+                        container_name = story.container.name
+                        container_short_name = story.container.short_name
+                    stories.append(Digg.Story(self, story.id, story.link, story.submit_date, story.diggs, story.comments, story.href, story.status, story.title.text, story.description.text, user_name, user_icon, user_registered, user_profileviews, topic_name, topic_short_name, container_name, container_short_name))
             else:
+                if hasattr(story, 'user'):
+                    user_name = story.user.name
+                    user_icon = story.user.icon
+                    user_registered = story.user.registered
+                    user_profileviews = story.user.profileviews
+                if hasattr(story, 'topic'):
+                    topic_name = story.topic.name
+                    topic_short_name = story.topic.short_name
+                if hasattr(story, 'container'):
+                    container_name = story.container.name
+                    container_short_name = story.container.short_name
                 story = data.stories.story
-                stories.append(Digg.Story(self, story.id, story.link, story.submit_date, story.diggs, story.comments, story.href, story.status, story.title.text, story.description.text, story.user.name, story.user.icon, story.user.registered, story.user.profileviews, story.topic.name, story.topic.short_name, story.container.name, story.container.short_name))
+                stories.append(Digg.Story(self, story.id, story.link, story.submit_date, story.diggs, story.comments, story.href, story.status, story.title.text, story.description.text, user_name, user_icon, user_registered, user_profileviews, topic_name, topic_short_name, container_name, container_short_name))
                 
         return stories
     
