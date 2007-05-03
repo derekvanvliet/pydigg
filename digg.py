@@ -1042,8 +1042,9 @@ class Digg(object):
                 args[key] = value
                 
         url = 'http://services.digg.com%s/?appkey=%s&%s' % (endpoint, self.appkey, urlencode(args))
-        
+
         response = urlopen(url).read()
+        response = unicode(response,errors='ignore')
         xml = minidom.parseString(response)
         data = self._unmarshal(xml)
         if hasattr(data, 'error'):
