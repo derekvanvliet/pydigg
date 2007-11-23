@@ -1010,6 +1010,7 @@ class Digg(object):
                         container_short_name = story.container.short_name
                     stories.append(Digg.Story(self, story.id, story.link, story.submit_date, story.diggs, story.comments, story.href, story.status, story.title.text, story.description.text, user_name, user_icon, user_registered, user_profileviews, topic_name, topic_short_name, container_name, container_short_name))
             else:
+                story = data.stories.story
                 if hasattr(story, 'user'):
                     user_name = story.user.name
                     user_icon = story.user.icon
@@ -1021,7 +1022,6 @@ class Digg(object):
                 if hasattr(story, 'container'):
                     container_name = story.container.name
                     container_short_name = story.container.short_name
-                story = data.stories.story
                 stories.append(Digg.Story(self, story.id, story.link, story.submit_date, story.diggs, story.comments, story.href, story.status, story.title.text, story.description.text, user_name, user_icon, user_registered, user_profileviews, topic_name, topic_short_name, container_name, container_short_name))
                 
         return stories
