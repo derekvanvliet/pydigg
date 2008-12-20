@@ -41,7 +41,17 @@ class Digg(object):
                  offset='0'):
         data = self._get('/stories/diggs',min_date=str(min_date),max_date=str(max_date),sort=sort,count=str(count),offset=str(offset))
         return self._parseDiggs(data)
-
+    
+    def getContainerDiggs(self,
+                          container_name,
+                          min_date='',
+                          max_date='',
+                          sort='date-desc',
+                          count='25',
+                          offset='0'):
+        data = self._get('/stories/container/' + container_name + '/diggs',min_date=str(min_date),max_date=str(max_date),sort=sort,count=str(count),offset=str(offset))
+        return self._parseDiggs(data)
+    
     def getPopularDiggs(self,
                         min_date='',
                         max_date='',
