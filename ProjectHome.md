@@ -1,0 +1,1 @@
+PyDigg is a Python toolkit for the Digg API. It provides an object-oriented interface to all of the available endpoints of the API. It is offered under the MIT License.
